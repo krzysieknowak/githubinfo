@@ -22,7 +22,9 @@ public class GithubService {
     }
     public List<SingleRepoWithBranchesResponseDto> fetchAllUserReposWithBranches(String user) {
         SingleRepoDto[] repos = fetchAllUserRepos(user);
-
+        if(repos == null){
+            return null;
+        }
         List<SingleRepoWithBranchesResponseDto> reposWithBranches = new ArrayList<>();
 
         return Arrays.stream(repos)
@@ -37,7 +39,7 @@ public class GithubService {
         String json = githubProxy.makeGetRequestForRepos(user);
         if(json == null){
             log.error("Fetched Json is null when getting repos");
-            return new SingleRepoDto[]{new SingleRepoDto("emptyRepoService", new OwnerDto("emptyRepoService"), false)};
+            return null;
         }
         SingleRepoDto[] response = mapper.mapJsonToSingleRepoDto(json);
         log.info("Fetched repos: " + response);
@@ -47,7 +49,7 @@ public class GithubService {
         String json = githubProxy.makeGetRequestForBranches(user, repo);
         if(json == null){
             log.error("Fetched Json is null when getting branches");
-            return new SingleBranchDto[]{new SingleBranchDto("emptyBranchService",new CommitDto("emptyBranchService") )};
+            return null;
         }
         SingleBranchDto[] response = mapper.mapJsonToSingleBranchDto(json);
         log.info("Fetched branches: " + response);
