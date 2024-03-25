@@ -2,6 +2,6 @@ package com.knowak.githubinfo.mediaerror;
 
 import org.springframework.http.HttpStatus;
 
-public record MediaTypeErrorResponseDto(HttpStatus status, String Message) {
+public record MediaTypeErrorResponseDto(int status, String Message) {
 
 }

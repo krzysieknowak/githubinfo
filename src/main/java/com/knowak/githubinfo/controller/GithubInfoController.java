@@ -4,6 +4,7 @@ import com.knowak.githubinfo.github.proxy.dto.SingleRepoWithBranchesResponseDto;
 import com.knowak.githubinfo.github.service.GithubService;
 import com.knowak.githubinfo.github.usererror.UserNotFoundException;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,9 @@ public class GithubInfoController {
         this.service = service;
     }
 
-    @GetMapping(value = "/{user}", produces = "application/json")
+    @GetMapping(value = "/{user}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SingleRepoWithBranchesResponseDto>> getFullRequiredInfo(@PathVariable String user)  {
 
         List<SingleRepoWithBranchesResponseDto> response = service.fetchAllUserReposWithBranches(user);
