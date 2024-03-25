@@ -1,6 +1,6 @@
 package com.knowak.githubinfo.controller;
 
-import com.knowak.githubinfo.github.proxy.dto.response.SingleRepoWithBranchesResponseDto;
+import com.knowak.githubinfo.github.proxy.dto.SingleRepoWithBranchesResponseDto;
 import com.knowak.githubinfo.github.service.GithubService;
 import com.knowak.githubinfo.github.usererror.UserNotFoundException;
 import lombok.extern.log4j.Log4j2;

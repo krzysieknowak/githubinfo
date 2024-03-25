@@ -1,7 +1,7 @@
-package com.knowak.githubinfo.github.proxy.dto.response;
+package com.knowak.githubinfo.github.proxy.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record CommitDto(String sha) {
+public record OwnerDto(String login) {
 }

@@ -1,7 +1,9 @@
 package com.knowak.githubinfo.github.service;
 
 import com.knowak.githubinfo.github.proxy.GithubProxy;
-import com.knowak.githubinfo.github.proxy.dto.response.*;
+import com.knowak.githubinfo.github.proxy.dto.SingleBranchDto;
+import com.knowak.githubinfo.github.proxy.dto.SingleRepoDto;
+import com.knowak.githubinfo.github.proxy.dto.SingleRepoWithBranchesResponseDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +16,11 @@ import java.util.stream.Collectors;
 @Log4j2
 public class GithubService {
     private final GithubProxy githubProxy;
-    private final Mapper mapper;
 
-    public GithubService(GithubProxy githubProxy, Mapper mapper) {
+    public GithubService(GithubProxy githubProxy) {
         this.githubProxy = githubProxy;
-        this.mapper = mapper;
     }
+
     public List<SingleRepoWithBranchesResponseDto> fetchAllUserReposWithBranches(String user) {
         SingleRepoDto[] repos = fetchAllUserRepos(user);
         if(repos == null){
@@ -36,22 +37,20 @@ public class GithubService {
                 .collect(Collectors.toList());
     }
     private SingleRepoDto[] fetchAllUserRepos(String user){
-        String json = githubProxy.makeGetRequestForRepos(user);
-        if(json == null){
-            log.error("Fetched Json is null when getting repos");
+        SingleRepoDto[] response = githubProxy.makeGetRequestForRepos(user);
+        if(response == null){
+            log.error("Fetched response is null when getting repos");
             return null;
         }
-        SingleRepoDto[] response = mapper.mapJsonToSingleRepoDto(json);
         log.info("Fetched repos: " + response);
         return response;
     }
     private SingleBranchDto[] fetchAllBranchesFromUserRepos(String user, String repo){
-        String json = githubProxy.makeGetRequestForBranches(user, repo);
-        if(json == null){
-            log.error("Fetched Json is null when getting branches");
+        SingleBranchDto[] response = githubProxy.makeGetRequestForBranches(user, repo);
+        if(response == null){
+            log.error("Fetched response is null when getting branches");
             return null;
         }
-        SingleBranchDto[] response = mapper.mapJsonToSingleBranchDto(json);
         log.info("Fetched branches: " + response);
         return response;
     }

@@ -1,6 +1,8 @@
 package com.knowak.githubinfo.github.proxy;
 
 
+import com.knowak.githubinfo.github.proxy.dto.SingleBranchDto;
+import com.knowak.githubinfo.github.proxy.dto.SingleRepoDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -26,17 +28,17 @@ public class GithubProxy {
     @Value("${github.proxy.host}")
     private String host;
 
-    public String makeGetRequestForRepos(String user){
+    public SingleRepoDto[] makeGetRequestForRepos(String user){
         //https://api.github.com/users/kalqa/repos
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(scheme)
                 .host(host)
                 .path("/users/" + user + "/repos");
         try{
-            ResponseEntity<String> exchange = restTemplate.exchange(builder.build().toUri(),
+            ResponseEntity<SingleRepoDto[]> exchange = restTemplate.exchange(builder.build().toUri(),
                     HttpMethod.GET,
                     null,
-                    String.class);
+                    SingleRepoDto[].class);
             return exchange.getBody();
         } catch (RestClientResponseException e) {
             log.error(e.getStatusText() + " " + e.getStatusCode().value());
@@ -45,7 +47,7 @@ public class GithubProxy {
         }
         return null;
     }
-    public String makeGetRequestForBranches(String user,String repo){
+    public SingleBranchDto[] makeGetRequestForBranches(String user, String repo){
         //https://api.github.com/repos/kalqa/03-open-feign/branches
 
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
@@ -53,10 +55,10 @@ public class GithubProxy {
                 .host(host)
                 .path("/repos/" + user + "/" + repo + "/branches");
         try{
-            ResponseEntity<String> exchange = restTemplate.exchange(builder.build().toUri(),
+            ResponseEntity<SingleBranchDto[]> exchange = restTemplate.exchange(builder.build().toUri(),
                     HttpMethod.GET,
                     null,
-                    String.class);
+                    SingleBranchDto[].class);
             return exchange.getBody();
         } catch (RestClientResponseException e) {
             log.error(e.getStatusText() + " " + e.getStatusCode().value());
@@ -67,4 +69,3 @@ public class GithubProxy {
     }
 
 }
-//"/repos/" + user + "/" + repo + "/branches"
