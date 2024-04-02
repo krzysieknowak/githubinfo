@@ -1,8 +1,7 @@
-package com.knowak.githubinfo.controller;
+package com.knowak.githubinfo.infrastructure.controller;
 
-import com.knowak.githubinfo.github.proxy.dto.SingleRepoWithBranchesResponseDto;
-import com.knowak.githubinfo.github.service.GithubService;
-import com.knowak.githubinfo.github.usererror.UserNotFoundException;
+import com.knowak.githubinfo.infrastructure.github.proxy.dto.SingleRepoWithBranchesResponseDto;
+import com.knowak.githubinfo.infrastructure.github.service.GithubService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +27,7 @@ public class GithubInfoController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SingleRepoWithBranchesResponseDto>> getFullRequiredInfo(@PathVariable String user)  {
-
         List<SingleRepoWithBranchesResponseDto> response = service.fetchAllUserReposWithBranches(user);
-        if(response == null){
-            throw new UserNotFoundException("User does not exist");
-        }
         return ResponseEntity.ok(response);
     }
 }

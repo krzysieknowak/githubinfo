@@ -1,4 +1,4 @@
-package com.knowak.githubinfo.mediaerror;
+package com.knowak.githubinfo.infrastructure.mediaerror;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

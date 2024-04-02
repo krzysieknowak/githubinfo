@@ -1,4 +1,4 @@
-package com.knowak.githubinfo.mediaerror;
+package com.knowak.githubinfo.infrastructure.mediaerror;
 
 import org.springframework.http.HttpStatus;
 

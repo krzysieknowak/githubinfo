@@ -1,4 +1,4 @@
-package com.knowak.githubinfo.github.usererror;
+package com.knowak.githubinfo.infrastructure.github.usererror;
 
 public class UserNotFoundException extends RuntimeException {
 
