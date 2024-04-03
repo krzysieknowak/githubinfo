@@ -1,8 +1,8 @@
-package com.knowak.githubinfo.github.proxy;
+package com.knowak.githubinfo.infrastructure.github.proxy;
 
 
-import com.knowak.githubinfo.github.proxy.dto.SingleBranchDto;
-import com.knowak.githubinfo.github.proxy.dto.SingleRepoDto;
+import com.knowak.githubinfo.infrastructure.github.proxy.dto.SingleBranchDto;
+import com.knowak.githubinfo.infrastructure.github.proxy.dto.SingleRepoDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
